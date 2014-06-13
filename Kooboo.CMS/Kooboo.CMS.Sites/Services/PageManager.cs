@@ -212,7 +212,12 @@ namespace Kooboo.CMS.Sites.Services
             }
             page.Navigation.DisplayText = "";
             page.IsDefault = false;
-
+            if (page.Route != null)
+            {
+                page.Route.Identifier = null;
+            }
+            page.Published = false;
+            Update(site, page, page);
             return page;
         }
 
@@ -262,12 +267,37 @@ namespace Kooboo.CMS.Sites.Services
         #endregion
 
         #region Localize
-        public virtual void Localize(string fullName, Site currentSite)
+        public virtual void Localize(string fullName, Site currentSite, string userName = null)
         {
             var targetPage = new Page(currentSite, fullName);
             var sourcePage = targetPage.LastVersion();
 
-            Provider.Localize(sourcePage, currentSite);
+            if (targetPage.Site != sourcePage.Site)
+            {
+                Provider.Localize(sourcePage, currentSite);
+
+                try
+                {
+                    UpdatePageCascading(targetPage, userName);
+                }
+                catch (Exception e)
+                {
+                    Kooboo.HealthMonitoring.Log.LogException(e);
+                }
+            }
+        }
+        private void UpdatePageCascading(Page page, string userName)
+        {
+            page = page.AsActual();
+            if (page != null)
+            {
+                page.UserName = userName;
+                Update(page.Site, page, page);
+                foreach (var item in ChildPages(page.Site, page.FullName, null))
+                {
+                    UpdatePageCascading(item, userName);
+                }
+            }
 
         }
         public virtual void Unlocalize(Page page)
