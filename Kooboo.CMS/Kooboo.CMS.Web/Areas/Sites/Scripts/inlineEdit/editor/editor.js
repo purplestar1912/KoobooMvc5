@@ -172,10 +172,11 @@
                 schema: "html5",
                 inline: true,
                 menubar: false,
+                allow_script_urls: true,
                 toolbar_items_size: 'small',
 		toolbar: "save exit | searchreplace undo redo | bold italic forecolor formatselect | indent outdent | alignleft aligncenter alignright alignjustify | bullist numlist | image link unlink | rawcode",
                 setup: function (ed) {                   
-		     tinymce.ui.FloatPanel.zIndex=0x7FFFFFFF;
+		     //tinymce.ui.FloatPanel.zIndex=0x7FFFFFFF;
                      ed.on('BeforeSetContent', function (e) {
                          e.format = 'raw';
                      });
@@ -243,7 +244,7 @@
             });
         },
 
-        editable: function (edit) {
+        editable: function (edit) {console.log(edit);
             edit = (edit !== false);
             // prop
             try {
@@ -316,7 +317,8 @@
                     this.el.attr('disabled', 'DISABLED');
                 }
             } else {
-                this.editable(this.enable);
+                this.
+(this.enable);
             }*/
             this.editable(this.enable);
         },
