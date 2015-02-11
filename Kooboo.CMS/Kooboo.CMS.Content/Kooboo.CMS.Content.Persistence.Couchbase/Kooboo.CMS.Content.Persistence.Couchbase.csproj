@@ -94,6 +94,9 @@
       <Name>Kooboo.CMS.Content</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo copy "$(TargetDir)*.*" "..\..\..\..\Kooboo.CMS.Web\Bin\"</PostBuildEvent>
