@@ -46,7 +46,10 @@ namespace Kooboo.CMS.Sites.Persistence.EntityFramework
         }
         private static string GetSettingFile()
         {
-            return Path.Combine(Kooboo.Settings.BinDirectory, "Kooboo.CMS.Sites.Persistence.EntityFramework.config");
+            var filePath = Path.Combine(Kooboo.Settings.BinDirectory, "Kooboo.CMS.Sites.Persistence.EntityFramework.config");
+            if (!File.Exists(filePath))
+                filePath = Path.Combine(Kooboo.Settings.BaseDirectory, "Kooboo.CMS.Sites.Persistence.EntityFramework.config");
+            return filePath;
         }
         public static SiteEntitySetting Instance
         {

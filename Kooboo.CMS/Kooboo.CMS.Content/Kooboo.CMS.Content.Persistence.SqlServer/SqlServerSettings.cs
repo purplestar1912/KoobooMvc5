@@ -48,9 +48,9 @@ namespace Kooboo.CMS.Content.Persistence.SqlServer
         }
         private static string GetSettingFile()
         {
-            var filePath = Path.Combine(Kooboo.Settings.BaseDirectory, "SqlServer.config");
+            var filePath = Path.Combine(Kooboo.Settings.BinDirectory, "SqlServer.config");
             if (!File.Exists(filePath))
-                filePath = Path.Combine(Kooboo.Settings.BinDirectory, "SqlServer.config");
+                filePath = Path.Combine(Kooboo.Settings.BaseDirectory, "SqlServer.config");
             return filePath;
         }
         public static SqlServerSettings Instance
